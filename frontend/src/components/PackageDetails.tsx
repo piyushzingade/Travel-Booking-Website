@@ -1,4 +1,3 @@
-// components/PackageDetails.tsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPackages } from "../services/api";
@@ -20,11 +19,16 @@ const PackageDetails: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h1>{pkg.destination}</h1>
-      <p>{pkg.description}</p>
-      <p>Price: ${pkg.price}</p>
-      <p>Rating: {pkg.rating}</p>
-      <p>Duration: {pkg.duration}</p>
+      <h1 className="text-3xl font-bold">{pkg.destination}</h1>
+      <img
+        src={pkg.imageUrl}
+        alt={pkg.destination}
+        className="w-full h-80 object-cover rounded-lg mb-4"
+      />
+      <p className="text-lg">{pkg.description}</p>
+      <p className="text-xl font-bold mt-4">Price: ${pkg.price}</p>
+      <p className="text-lg">Rating: {pkg.rating} Stars</p>
+      <p className="text-lg">Duration: {pkg.duration}</p>
     </div>
   );
 };

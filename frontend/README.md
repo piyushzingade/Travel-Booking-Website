@@ -1,50 +1,87 @@
-# React + TypeScript + Vite
+  # Travel Booking Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a Travel Booking web application built using **React**, **Vite**, and **Tailwind CSS**. Follow the steps below to set up and run the project locally.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [Authors](#authors)
+- [License](#license)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- User-friendly interface for easy navigation
+- Responsive design using Tailwind CSS
+- Light and Dark mode toggle
+- Comprehensive information on travel destinations, culture, and more
+- Search functionality for quick access to specific content
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [TypeScript](https://www.typescriptlang.org/) - A typed superset of JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs
+- [React Icons](https://react-icons.github.io/react-icons/) - Include popular icons in your React projects easily
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+### Prerequisites
+
+- Node.js (v14.x or above)
+- npm (v6.x or above) or yarn (v1.x or above)
+
+### Clone the repository
+
+```bash
+git clone https://github.com/your-username/india-guide.git
+cd india-guide
+```
+## Install Dependencies
+### Using npm:
+```bash
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### Using yarn:
+```bash
+yarn install
 ```
+
+## Tailwind CSS Setup
+### Initialize it using the following command:
+```bash
+
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+// tailwind.config.js
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx,ts,tsx}", // Adjust paths as needed
+  ],
+  darkMode: 'class', // Enable class-based dark mode
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+```
+## Running project 
+### To run the development server:
+```bash
+npm run dev
+
+
+```
+
+## Author
+
+-Piyush
+-Siddhita 
