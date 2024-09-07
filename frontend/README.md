@@ -84,4 +84,3 @@ npm run dev
 ## Author
 
 -Piyush
--Siddhita 

@@ -11,7 +11,7 @@ export default function SearchBar({
   handleSearch,
 }: SearchBarProps) {
   return (
-    <div className="mb-4">
+    <div className="mb-4 ">
       
       <div className="flex items-center">
         {/* Input Field */}

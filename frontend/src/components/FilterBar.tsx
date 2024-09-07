@@ -17,8 +17,7 @@ export default function FilterBar({
   durationFilter,
   setDurationFilter,
 }: FilterBarProps) {
-  const [showFilters, setShowFilters] = useState(false); // Toggle visibility of filters
-
+  const [showFilters, setShowFilters] = useState(false); 
   return (
     <div className="mb-4">
       {/* Filter Toggle Button */}

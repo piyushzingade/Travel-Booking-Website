@@ -1,15 +1,15 @@
-// App.tsx
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import PackagePage from "./pages/PackagePage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PackageList from "./components/PackageList";
+import PackageDetails from "./components/PackageDetails";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/package/:id" element={<PackagePage />} />
+        <Route path="/" element={<PackageList />} />
+        <Route path="/packages/:id" element={<PackageDetails />} />
+        <Route path="*" element={<div>404 Not Found</div>} />{" "}
+        {/* Handle unknown routes */}
       </Routes>
     </Router>
   );

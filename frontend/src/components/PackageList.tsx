@@ -27,8 +27,8 @@ export default function PackageList() {
 
   return (
     <div className="p-4">
-      {/* Search & Filters */}
-      <div className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Center Search & Filters */}
+      <div className="mb-4 flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
         {/* Search Bar */}
         <SearchBar
           search={search}
@@ -43,11 +43,9 @@ export default function PackageList() {
           setMinRating={setMinRating}
           durationFilter={durationFilter}
           setDurationFilter={setDurationFilter}
-          // handleSearch={handleSearch} // Trigger search when filters are applied
         />
       </div>
 
-  
       <PackageListDisplay packages={filteredPackages} />
     </div>
   );
