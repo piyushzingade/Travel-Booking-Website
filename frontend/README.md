@@ -83,4 +83,4 @@ npm run dev
 
 ## Author
 
--Piyush
+-Piyush Zingade
