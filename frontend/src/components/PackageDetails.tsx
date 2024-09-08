@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages
 
 const PackageDetails: React.FC = () => {
   const { id } = useParams(); // Get the package ID from the URL
   const [pkg, setPackage] = useState<any>(null);
   const [selectedDate, setSelectedDate] = useState("");
+  const navigate = useNavigate(); // Use useNavigate hook from react-router-dom
 
   useEffect(() => {
-    console.log("Package ID:", id); // Log the package ID to ensure it's correct
-
     const fetchData = async () => {
       try {
         const data = await getPackages(); // Fetch all packages from the backend API
-        console.log("Fetched Data:", data); // Log the fetched data for debugging
         const selectedPackage = data.find((p: any) => p._id === id); // Find the package by ID
         if (selectedPackage) {
           setPackage(selectedPackage); // Set the package data in state
@@ -29,7 +27,12 @@ const PackageDetails: React.FC = () => {
   }, [id]);
 
   const handleBooking = () => {
-    alert("Travel Package Booked!");
+    if (!selectedDate) {
+      alert("Please select a date before proceeding");
+    } else {
+      // Redirect to booking page
+      navigate("/booking", { state: { pkg, selectedDate } });
+    }
   };
 
   // Display loading message while data is being fetched
@@ -90,7 +93,6 @@ const PackageDetails: React.FC = () => {
           <button
             onClick={handleBooking}
             className="mt-6 bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg text-lg"
-            disabled={!selectedDate} // Disable button if no date is selected
           >
             Book Travel
           </button>
