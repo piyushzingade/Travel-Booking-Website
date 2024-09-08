@@ -37,9 +37,19 @@ const PackageDetails: React.FC = () => {
 
   return (
     <div className="container mx-auto p-6">
+      {/* Move "Home" button outside the image and details container */}
+      <div className="mb-4">
+        <Link
+          to="/"
+          className="text-blue-500 hover:underline font-semibold text-lg"
+        >
+          Home
+        </Link>
+      </div>
+
       <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
-        {/* Left side - Image */}
-        <div className="w-full lg:w-1/2 h-96 lg:h-auto overflow-hidden">
+        {/* Left side: Image */}
+        <div className="w-full lg:w-1/2 h-96 overflow-hidden">
           <img
             src={pkg.imageUrl}
             alt={pkg.destination}
@@ -47,7 +57,7 @@ const PackageDetails: React.FC = () => {
           />
         </div>
 
-        {/* Right side - Details */}
+        {/* Right side: Details */}
         <div className="p-6 lg:p-8 lg:w-1/2 flex flex-col justify-between">
           <div>
             <h2 className="text-4xl font-bold mb-4">{pkg.destination}</h2>
@@ -85,13 +95,6 @@ const PackageDetails: React.FC = () => {
             Book Travel
           </button>
         </div>
-      </div>
-
-      {/* Back Button */}
-      <div className="mt-6">
-        <Link to="/" className="text-blue-500 hover:underline">
-          Back to Packages
-        </Link>
       </div>
     </div>
   );
