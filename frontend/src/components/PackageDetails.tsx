@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getPackages } from "../services/api";
+import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages
 
 const PackageDetails: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get the package ID from the URL
   const [pkg, setPackage] = useState<any>(null);
   const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
-    console.log("Package ID:", id); // Check if the correct id is logged
+    console.log("Package ID:", id); // Log the package ID to ensure it's correct
 
     const fetchData = async () => {
       try {
-        const data = await getPackages(); // Fetch all packages (mocked or actual API)
-        console.log("Fetched Data:", data); // Log the fetched data
-        const selectedPackage = data.find((p: any) => p._id === id);
+        const data = await getPackages(); // Fetch all packages from the backend API
+        console.log("Fetched Data:", data); // Log the fetched data for debugging
+        const selectedPackage = data.find((p: any) => p._id === id); // Find the package by ID
         if (selectedPackage) {
-          setPackage(selectedPackage);
+          setPackage(selectedPackage); // Set the package data in state
         } else {
           console.error("Package not found");
         }
@@ -24,34 +24,44 @@ const PackageDetails: React.FC = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData();
+
+    fetchData(); // Fetch data on component mount
   }, [id]);
 
   const handleBooking = () => {
-    alert("Booked");
+    alert("Travel Package Booked!");
   };
 
-  // Loading state
+  // Display loading message while data is being fetched
   if (!pkg) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col lg:flex-row">
-        {/* Package Image */}
-        <div className="w-full lg:w-1/2 h-72 lg:h-auto overflow-hidden rounded-lg">
+    <div className="container mx-auto p-6">
+      <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
+        {/* Left side - Image */}
+        <div className="w-full lg:w-1/2 h-96 lg:h-auto overflow-hidden">
           <img
             src={pkg.imageUrl}
             alt={pkg.destination}
             className="w-full h-full object-cover"
           />
         </div>
-        {/* Package Details */}
-        <div className="lg:pl-8 mt-4 lg:mt-0">
-          <h2 className="text-3xl font-bold mb-4">{pkg.destination}</h2>
-          <p className="mb-4">{pkg.description}</p>
-          <p className="text-gray-600">Duration: {pkg.duration}</p>
-          <p className="text-gray-600">Price: ${pkg.price}</p>
-          <p className="text-gray-600">Rating: {pkg.rating} Stars</p>
+
+        {/* Right side - Details */}
+        <div className="p-6 lg:p-8 lg:w-1/2 flex flex-col justify-between">
+          <div>
+            <h2 className="text-4xl font-bold mb-4">{pkg.destination}</h2>
+            <p className="text-gray-700 text-lg mb-4">{pkg.description}</p>
+            <p className="text-gray-500 text-lg mb-2">
+              <span className="font-semibold">Duration:</span> {pkg.duration}
+            </p>
+            <p className="text-gray-500 text-lg mb-2">
+              <span className="font-semibold">Price:</span> ${pkg.price}
+            </p>
+            <p className="text-gray-500 text-lg mb-2">
+              <span className="font-semibold">Rating:</span> {pkg.rating} Stars
+            </p>
+          </div>
 
           {/* Date Picker */}
           <div className="mt-4">
@@ -69,15 +79,16 @@ const PackageDetails: React.FC = () => {
           {/* Book Travel Button */}
           <button
             onClick={handleBooking}
-            className="mt-4 bg-green-500 text-white p-2 rounded"
-            disabled={!selectedDate} // Disable the button if no date is selected
+            className="mt-6 bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg text-lg"
+            disabled={!selectedDate} // Disable button if no date is selected
           >
             Book Travel
           </button>
         </div>
       </div>
+
       {/* Back Button */}
-      <div className="mt-8">
+      <div className="mt-6">
         <Link to="/" className="text-blue-500 hover:underline">
           Back to Packages
         </Link>

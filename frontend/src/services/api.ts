@@ -1,9 +1,11 @@
-// services/api.ts
-import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/api';
+import axios from "axios";
 
 export const getPackages = async () => {
-  const response = await axios.get(`${API_URL}/packages`);
-  return response.data;
+  try {
+    const response = await axios.get("http://localhost:3002/allPackages");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching packages:", error);
+    throw error;
+  }
 };
