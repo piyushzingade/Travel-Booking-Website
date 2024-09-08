@@ -5,22 +5,30 @@ import FilterBar from "./FilterBar";
 import PackageListDisplay from "./PackageListDisplay";
 
 export default function PackageList() {
-  const [packages, setPackages] = useState([]);
-  const [filteredPackages, setFilteredPackages] = useState([]);
+  const [packages, setPackages] = useState([]); // All packages from API
+  const [filteredPackages, setFilteredPackages] = useState([]); // Filtered packages to display
   const [search, setSearch] = useState("");
-  const [priceRange, setPriceRange] = useState(10000); // Set max price range
+
+  // Applied filters
+  const [priceRange, setPriceRange] = useState(10000); // Set default max price range
   const [minRating, setMinRating] = useState(1);
   const [durationFilter, setDurationFilter] = useState("");
+
+  // Temporary filter states (uncommitted values)
+  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
+  const [tempMinRating, setTempMinRating] = useState(minRating);
+  const [tempDurationFilter, setTempDurationFilter] = useState(durationFilter);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch data from API
+  // Fetch data from API when component mounts
   useEffect(() => {
     const fetchPackages = async () => {
       try {
         const response = await axios.get("http://localhost:3002/allPackages");
         setPackages(response.data);
-       
+        setFilteredPackages(response.data); // Initially show all packages
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch packages");
@@ -31,9 +39,16 @@ export default function PackageList() {
     fetchPackages();
   }, []);
 
-  // Filter Logic
-  const handleSearch = () => {
-    const results = packages.filter((pkg: any) => {
+  // Apply filters when the "Apply" button is clicked
+  const applyFilters = () => {
+    setPriceRange(tempPriceRange);
+    setMinRating(tempMinRating);
+    setDurationFilter(tempDurationFilter);
+  };
+
+  // Filter the packages whenever the applied filters change
+  useEffect(() => {
+    const filtered = packages.filter((pkg: any) => {
       return (
         pkg.destination.toLowerCase().includes(search.toLowerCase()) &&
         pkg.price <= priceRange &&
@@ -41,8 +56,8 @@ export default function PackageList() {
         (durationFilter === "" || pkg.duration === durationFilter)
       );
     });
-    setFilteredPackages(results);
-  };
+    setFilteredPackages(filtered); // Update the filtered packages list
+  }, [search, priceRange, minRating, durationFilter, packages]);
 
   if (loading) {
     return <div>Loading packages...</div>;
@@ -60,16 +75,17 @@ export default function PackageList() {
         <SearchBar
           search={search}
           setSearch={setSearch}
-          handleSearch={handleSearch}
+          handleSearch={() => {}}
         />
         {/* Filter Bar */}
         <FilterBar
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-          minRating={minRating}
-          setMinRating={setMinRating}
-          durationFilter={durationFilter}
-          setDurationFilter={setDurationFilter}
+          priceRange={tempPriceRange}
+          setPriceRange={setTempPriceRange} // Use temp state for changes
+          minRating={tempMinRating}
+          setMinRating={setTempMinRating} // Use temp state for changes
+          durationFilter={tempDurationFilter}
+          setDurationFilter={setTempDurationFilter} // Use temp state for changes
+          applyFilters={applyFilters} // Pass the applyFilters function
         />
       </div>
 
@@ -77,3 +93,4 @@ export default function PackageList() {
     </div>
   );
 }
+
