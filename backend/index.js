@@ -1,13 +1,30 @@
 require("dotenv").config();
-
-const {TravelPackageModel} = require('./model/TravelPackageModel')
-
 const express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
+const { TravelPackageModel } = require('./model/TravelPackageModel');
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 const app = express();
+app.use(cors());
+
+app.get('/allPackages', async (req, res) => {
+  try {
+    let allPackages = await TravelPackageModel.find({});
+    res.json(allPackages);
+  } catch (err) {
+    res.status(500).send("Error fetching packages");
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`App started on port ${PORT}`);
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("DB connected"))
+    .catch((err) => console.error("DB connection error:", err));
+});
+
 
 // app.get('/addPackages' , async(req, res)  => {
 //     let tempPackage = [
@@ -216,13 +233,3 @@ const app = express();
 //     });
 //     res.send("Done")
 // })
-
-app.get('/allPackages' , async(req, res) =>{
-    let allPackages = await TravelPackageModel.find({});
-    res.json(allPackages)
-})
-app.listen(PORT, ()=>{
-    console.log("App started");
-    mongoose.connect(uri);
-    console.log("DB connected");
-})
