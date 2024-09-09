@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const BookingForm: React.FC = () => {
+export default function BookingForm(){
   const { state } = useLocation();
   const { pkg, selectedDate } = state || {};
 
@@ -108,4 +108,3 @@ const BookingForm: React.FC = () => {
   );
 };
 
-export default BookingForm;
