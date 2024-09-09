@@ -6,7 +6,7 @@ interface TravelPackage {
   price: number;
   rating: number;
   duration: string;
-  description: string;
+  description1: string;
   imageUrl: string;
 }
 
@@ -31,7 +31,7 @@ export default function PackageListDisplay({
           </div>
           <div className="p-4">
             <h3 className="text-xl font-bold">{pkg.destination}</h3>
-            <p>{pkg.description}</p>
+            <p>{pkg.description1}</p>
             <p className="text-sm text-gray-600">Duration: {pkg.duration}</p>
             <p className="font-bold">Price: ${pkg.price}</p>
             <p>Rating: {pkg.rating} Stars</p>
