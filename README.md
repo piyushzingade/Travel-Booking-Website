@@ -38,7 +38,7 @@ To set up the project locally, follow these steps:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/india-guide.git
+git clone https://github.com/piyushzingade/Travel-Booking-Website.git
 cd india-guide
 ```
 ## Install Dependencies
@@ -74,7 +74,7 @@ module.exports = {
 
 ```
 ## Running project 
-### To run the development server:
+### To run the development client:
 ```bash
 npm run dev
 
