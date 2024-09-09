@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages
 
-const PackageDetails: React.FC = () => {
+export default function PackageDetails () {
   const { id } = useParams(); // Get the package ID from the URL
   const [pkg, setPackage] = useState<any>(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -103,4 +103,4 @@ const PackageDetails: React.FC = () => {
   );
 };
 
-export default PackageDetails;
+
