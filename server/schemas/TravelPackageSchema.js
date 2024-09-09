@@ -5,7 +5,8 @@ const travelPackageSchema = new mongoose.Schema({
   price: Number,
   rating: Number,
   duration: String,
-  description: String,
+  description1: String,
+  description2: String,
   imageUrl: String,
 });
 
