@@ -64,7 +64,8 @@ const PackageDetails: React.FC = () => {
         <div className="p-6 lg:p-8 lg:w-1/2 flex flex-col justify-between">
           <div>
             <h2 className="text-4xl font-bold mb-4">{pkg.destination}</h2>
-            <p className="text-gray-700 text-lg mb-4">{pkg.description}</p>
+            <p className="text-gray-700 text-lg mb-4">{pkg.description1}</p>
+            <p className="text-gray-700 text-lg mb-4">{pkg.description2}</p>
             <p className="text-gray-500 text-lg mb-2">
               <span className="font-semibold">Duration:</span> {pkg.duration}
             </p>
