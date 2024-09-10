@@ -1,12 +1,12 @@
-// pages/HomePage.tsx
+import React from "react";
 import PackageList from "../components/PackageList";
 
-export default function HomePage () {
+const HomePage: React.FC = () => {
   return (
-    <>
+    <div>
       <PackageList />
-    </>
+    </div>
   );
 };
 
-
+export default HomePage;
