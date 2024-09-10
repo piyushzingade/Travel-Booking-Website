@@ -1,7 +1,7 @@
-import React from "react";
+
 import PackageDetails from "../components/DetailPackage";
 
-const PackagePage: React.FC = () => {
+export default function PackagePage () {
   return (
     <div>
       <PackageDetails />
@@ -9,4 +9,4 @@ const PackagePage: React.FC = () => {
   );
 };
 
-export default PackagePage;
+

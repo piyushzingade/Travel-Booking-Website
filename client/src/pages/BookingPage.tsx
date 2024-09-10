@@ -1,8 +1,8 @@
 //pages/BookingPage
-import React from "react";
+
 import BookingForm from "../components/BookingForm";
 
-const BookingPage: React.FC = () => {
+export default function BookingPage() {
   return (
     <div>
       <BookingForm />
@@ -10,4 +10,4 @@ const BookingPage: React.FC = () => {
   );
 };
 
-export default BookingPage;
+

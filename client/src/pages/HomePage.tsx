@@ -1,7 +1,8 @@
-import React from "react";
+
 import PackageList from "../components/PackageList";
 
-const HomePage: React.FC = () => {
+
+export default function HomePage ()  {
   return (
     <div>
       <PackageList />
@@ -9,4 +10,3 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
