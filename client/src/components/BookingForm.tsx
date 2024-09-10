@@ -1,50 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+import { RootState, AppDispatch } from "../redux/store";
+import { setFormField, setEndDate } from "../redux/slices/bookingSlice";
 
-export default function BookingForm(){
+export default function BookingForm() {
   const { state } = useLocation();
   const { pkg, selectedDate } = state || {};
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    startDate: selectedDate || "",
-    endDate: "",
-  });
+  const dispatch = useDispatch<AppDispatch>();
+  const form = useSelector((state: RootState) => state.booking);
 
-  // Function to calculate the end date based on the start date and package duration
+  useEffect(() => {
+    if (pkg) {
+      dispatch(setFormField({ field: "startDate", value: selectedDate || "" }));
+      dispatch(setEndDate(calculateEndDate(selectedDate || "", pkg.duration)));
+    }
+  }, [pkg, selectedDate, dispatch]);
+
   const calculateEndDate = (startDate: string, duration: string) => {
     const start = new Date(startDate);
-    const durationDays = parseInt(duration); // Convert duration string to number
+    const durationDays = parseInt(duration);
     const end = new Date(start);
-    end.setDate(start.getDate() + durationDays); // Add duration days to start date
-    return end.toISOString().split("T")[0]; // Format the date as YYYY-MM-DD
+    end.setDate(start.getDate() + durationDays);
+    return end.toISOString().split("T")[0];
   };
 
-  // Update endDate whenever startDate or package duration changes
   useEffect(() => {
     if (form.startDate && pkg?.duration) {
-      const durationInDays = parseInt(pkg.duration); // Extract the duration from the package (e.g., "6 days")
+      const durationInDays = parseInt(pkg.duration);
       const endDate = calculateEndDate(
         form.startDate,
         durationInDays.toString()
       );
-      setForm((prevForm) => ({ ...prevForm, endDate }));
+      dispatch(setEndDate(endDate));
     }
-  }, [form.startDate, pkg?.duration]);
+  }, [form.startDate, pkg?.duration, dispatch]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setFormField({
+        field: e.target.name as keyof typeof form,
+        value: e.target.value,
+      })
+    );
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
+    // Phone number validation: Should be exactly 10 digits
+    const phoneRegex = /^[0-9]{10}$/;
+    // Email validation using basic regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!form.name || !form.email || !form.startDate || !form.endDate) {
-      alert("Please fill out all fields");
+      toast.error("Please fill out all fields");
       return;
     }
 
-    // Simulate form submission
-    alert(
+    if (!phoneRegex.test(form.phone)) {
+      toast.error("Phone number must be exactly 10 digits");
+      return;
+    }
+
+    if (!emailRegex.test(form.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    toast.success(
       `Booking submitted for ${form.name} from ${form.startDate} to ${form.endDate}`
     );
   };
@@ -59,8 +85,9 @@ export default function BookingForm(){
           <label className="block">Name</label>
           <input
             type="text"
+            name="name"
             value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onChange={handleChange}
             className="border p-2 rounded w-full"
           />
         </div>
@@ -68,17 +95,20 @@ export default function BookingForm(){
           <label className="block">Phone no.</label>
           <input
             type="text"
+            name="phone"
             value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            onChange={handleChange}
             className="border p-2 rounded w-full"
+            placeholder="1234567890"
           />
         </div>
         <div className="mb-4">
           <label className="block">Email</label>
           <input
             type="email"
+            name="email"
             value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            onChange={handleChange}
             className="border p-2 rounded w-full"
           />
         </div>
@@ -86,8 +116,9 @@ export default function BookingForm(){
           <label className="block">Start Date</label>
           <input
             type="date"
+            name="startDate"
             value={form.startDate}
-            onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+            onChange={handleChange}
             className="border p-2 rounded w-full"
           />
         </div>
@@ -95,6 +126,7 @@ export default function BookingForm(){
           <label className="block">End Date</label>
           <input
             type="date"
+            name="endDate"
             value={form.endDate}
             readOnly
             className="border p-2 rounded w-full bg-gray-100"
@@ -106,5 +138,4 @@ export default function BookingForm(){
       </form>
     </div>
   );
-};
-
+}

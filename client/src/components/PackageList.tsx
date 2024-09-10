@@ -1,63 +1,38 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPackages, applyFilters } from "../redux/slices/packagesSlice";
+import { RootState, AppDispatch } from "../redux/store";
 import SearchBar from "./SearchBar";
 import FilterBar from "./FilterBar";
-import PackageListDisplay from "./PackageListDisplay";
+import DisplayPackageList from "./DisplayPackageList";
 
-export default function PackageList() {
-  const [packages, setPackages] = useState([]); // All packages from API
-  const [filteredPackages, setFilteredPackages] = useState([]); // Filtered packages to display
+export default function PackageList () {
+  const dispatch = useDispatch<AppDispatch>();
+  const { filteredPackages, loading, error } = useSelector(
+    (state: RootState) => state.packages
+  );
+
   const [search, setSearch] = useState("");
+  const [tempPriceRange, setTempPriceRange] = useState(10000);
+  const [tempMinRating, setTempMinRating] = useState(1);
+  const [tempDurationFilter, setTempDurationFilter] = useState("");
 
-  // Applied filters
-  const [priceRange, setPriceRange] = useState(10000); // Set default max price range
-  const [minRating, setMinRating] = useState(1);
-  const [durationFilter, setDurationFilter] = useState("");
-
-  // Temporary filter states (uncommitted values)
-  const [tempPriceRange, setTempPriceRange] = useState(priceRange);
-  const [tempMinRating, setTempMinRating] = useState(minRating);
-  const [tempDurationFilter, setTempDurationFilter] = useState(durationFilter);
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  // Fetch data from API when component mounts
+  // Fetch packages on component mount
   useEffect(() => {
-    const fetchPackages = async () => {
-      try {
-        const response = await axios.get("http://localhost:3002/allPackages");
-        setPackages(response.data);
-        setFilteredPackages(response.data); // Initially show all packages
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch packages");
-        setLoading(false);
-      }
-    };
+    dispatch(fetchPackages());
+  }, [dispatch]);
 
-    fetchPackages();
-  }, []);
-
-  // Apply filters when the "Apply" button is clicked
-  const applyFilters = () => {
-    setPriceRange(tempPriceRange);
-    setMinRating(tempMinRating);
-    setDurationFilter(tempDurationFilter);
+  // Apply filters
+  const handleApplyFilters = () => {
+    dispatch(
+      applyFilters({
+        priceRange: tempPriceRange,
+        minRating: tempMinRating,
+        durationFilter: tempDurationFilter,
+        search,
+      })
+    );
   };
-
-  // Filter the packages whenever the applied filters change
-  useEffect(() => {
-    const filtered = packages.filter((pkg: any) => {
-      return (
-        pkg.destination.toLowerCase().includes(search.toLowerCase()) &&
-        pkg.price <= priceRange &&
-        pkg.rating >= minRating &&
-        (durationFilter === "" || pkg.duration === durationFilter)
-      );
-    });
-    setFilteredPackages(filtered); // Update the filtered packages list
-  }, [search, priceRange, minRating, durationFilter, packages]);
 
   if (loading) {
     return <div>Loading packages...</div>;
@@ -80,17 +55,17 @@ export default function PackageList() {
         {/* Filter Bar */}
         <FilterBar
           priceRange={tempPriceRange}
-          setPriceRange={setTempPriceRange} // Use temp state for changes
+          setPriceRange={setTempPriceRange}
           minRating={tempMinRating}
-          setMinRating={setTempMinRating} // Use temp state for changes
+          setMinRating={setTempMinRating}
           durationFilter={tempDurationFilter}
-          setDurationFilter={setTempDurationFilter} // Use temp state for changes
-          applyFilters={applyFilters} // Pass the applyFilters function
+          setDurationFilter={setTempDurationFilter}
+          applyFilters={handleApplyFilters}
         />
       </div>
 
-      <PackageListDisplay packages={filteredPackages} />
+      <DisplayPackageList packages={filteredPackages} />
     </div>
   );
-}
+};
 

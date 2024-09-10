@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface TravelPackage {
@@ -14,9 +15,7 @@ interface PackageListDisplayProps {
   packages: TravelPackage[];
 }
 
-export default function PackageListDisplay({
-  packages,
-}: PackageListDisplayProps) {
+export default function DisplayPackageList ({packages}:PackageListDisplayProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {packages.map((pkg) => (
@@ -46,4 +45,5 @@ export default function PackageListDisplay({
       ))}
     </div>
   );
-}
+};
+

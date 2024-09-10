@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast"; // Import react-hot-toast
 import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages
 
-export default function PackageDetails () {
+export default function PackageDetails() {
   const { id } = useParams(); // Get the package ID from the URL
   const [pkg, setPackage] = useState<any>(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -16,10 +17,10 @@ export default function PackageDetails () {
         if (selectedPackage) {
           setPackage(selectedPackage); // Set the package data in state
         } else {
-          console.error("Package not found");
+          toast.error("Package not found"); // Use toast for error handling
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        toast.error("Error fetching data");
       }
     };
 
@@ -28,10 +29,11 @@ export default function PackageDetails () {
 
   const handleBooking = () => {
     if (!selectedDate) {
-      alert("Please select a date before proceeding");
+      toast.error("Please select a date before proceeding");
     } else {
       // Redirect to booking page
       navigate("/booking", { state: { pkg, selectedDate } });
+      toast.success("Booking page loaded!");
     }
   };
 
@@ -101,6 +103,4 @@ export default function PackageDetails () {
       </div>
     </div>
   );
-};
-
-
+}
