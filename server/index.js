@@ -18,9 +18,8 @@ app.get('/allPackages', async (req, res) => {
   }
 });
 
-// app.get('/addPackages' , async(req, res)  => {
-//     let tempPackage = [
-//   {
+app.get('/addPackages' , async(req, res)  => {
+    let tempPackage = [
 //     _id: "1",
 //     destination: "Bali, Indonesia",
 //     price: 1200,
@@ -230,22 +229,33 @@ app.get('/allPackages', async (req, res) => {
 //     description1: "Experience the lush beauty of Kerala, God's Own Country.",
 //     description2: "Kerala is known for its serene backwaters, lush greenery, and rich cultural traditions. In this 7-day package, you’ll cruise through the backwaters on a traditional houseboat, relax on the beaches of Kovalam, and explore the hill stations of Munnar. Visit tea plantations, spice gardens, and wildlife sanctuaries. Kerala offers a peaceful and rejuvenating experience, perfect for those looking to escape the hustle and bustle of daily life.",
 //     imageUrl: "https://images.pexels.com/photos/3370598/pexels-photo-3370598.jpeg?auto=compress&cs=tinysrgb&w=600"
-//   }
-// ];
-//     tempPackage.forEach((item) =>{
-//         let newPackage = new TravelPackageModel({
-//             destination: item.destination,
-//             price: item.price,
-//             rating: item.rating,
-//             duration: item.duration,
-//             description1: item.description1,
-//             description2:item.description2,
-//             imageUrl: item.imageUrl,
-//         });
-//         newPackage.save();
-//     });
-//     res.send("Done")
-// })
+
+  {
+  "_id": "22",
+  "destination": "Budapest, Hungary",
+  "price": 2200,
+  "rating": 4.7,
+  "duration": "5 days",
+  "description1": "Discover the enchanting city of Budapest, Hungary.",
+  "description2": "This 5-day journey in Budapest offers a deep dive into the city's stunning architecture, thermal baths, and vibrant culture. Stroll along the Danube River, admire the grandeur of Buda Castle and the Parliament Building, and relax in the famous Széchenyi Thermal Bath. Experience the rich culinary scene with traditional Hungarian dishes and explore the charming streets of the Jewish Quarter. Budapest provides a captivating mix of history, beauty, and relaxation.",
+  "imageUrl": "https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&w=600"
+}
+  
+];
+    tempPackage.forEach((item) =>{
+        let newPackage = new TravelPackageModel({
+            destination: item.destination,
+            price: item.price,
+            rating: item.rating,
+            duration: item.duration,
+            description1: item.description1,
+            description2:item.description2,
+            imageUrl: item.imageUrl,
+        });
+        newPackage.save();
+    });
+    res.send("Done")
+})
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}`);

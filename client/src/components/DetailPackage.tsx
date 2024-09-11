@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"; // Import react-hot-toast
 import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages

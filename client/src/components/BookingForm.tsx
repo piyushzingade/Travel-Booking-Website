@@ -1,17 +1,21 @@
-import  { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { RootState, AppDispatch } from "../redux/store";
 import { setFormField, setEndDate } from "../redux/slices/bookingSlice";
 
+// Component for booking form
 export default function BookingForm() {
   const { state } = useLocation();
   const { pkg, selectedDate } = state || {};
 
+  // Redux hooks
   const dispatch = useDispatch<AppDispatch>();
   const form = useSelector((state: RootState) => state.booking);
+  const navigate = useNavigate();
 
+  // Update form state with initial values from location state
   useEffect(() => {
     if (pkg) {
       dispatch(setFormField({ field: "startDate", value: selectedDate || "" }));
@@ -19,7 +23,8 @@ export default function BookingForm() {
     }
   }, [pkg, selectedDate, dispatch]);
 
-  const calculateEndDate = (startDate: string, duration: string) => {
+  // Calculate the end date based on start date and duration
+  const calculateEndDate = (startDate: string, duration: string): string => {
     const start = new Date(startDate);
     const durationDays = parseInt(duration);
     const end = new Date(start);
@@ -27,17 +32,15 @@ export default function BookingForm() {
     return end.toISOString().split("T")[0];
   };
 
+  // Update end date when start date or package duration changes
   useEffect(() => {
     if (form.startDate && pkg?.duration) {
-      const durationInDays = parseInt(pkg.duration);
-      const endDate = calculateEndDate(
-        form.startDate,
-        durationInDays.toString()
-      );
+      const endDate = calculateEndDate(form.startDate, pkg.duration);
       dispatch(setEndDate(endDate));
     }
   }, [form.startDate, pkg?.duration, dispatch]);
 
+  // Handle input changes and update Redux state
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       setFormField({
@@ -47,14 +50,16 @@ export default function BookingForm() {
     );
   };
 
+  // Validate and handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Phone number validation: Should be exactly 10 digits
+    // Phone number validation: Must be exactly 10 digits
     const phoneRegex = /^[0-9]{10}$/;
     // Email validation using basic regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Validate form fields
     if (!form.name || !form.email || !form.startDate || !form.endDate) {
       toast.error("Please fill out all fields");
       return;
@@ -70,9 +75,11 @@ export default function BookingForm() {
       return;
     }
 
+    // Show success message and redirect to home page
     toast.success(
       `Booking submitted for ${form.name} from ${form.startDate} to ${form.endDate}`
     );
+    navigate("/");
   };
 
   return (
