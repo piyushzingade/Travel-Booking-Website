@@ -15,9 +15,7 @@ This is a Travel Booking web application built using **React**, **Vite**, and **
 
 - User-friendly interface for easy navigation
 - Responsive design using Tailwind CSS
-- Light and Dark mode toggle
-- Comprehensive information on travel destinations, culture, and more
-- Search functionality for quick access to specific content
+
 
 ## Technologies Used
 
