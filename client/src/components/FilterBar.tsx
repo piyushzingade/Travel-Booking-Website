@@ -19,14 +19,17 @@ export default function FilterBar({
   setDurationFilter,
   applyFilters,
 }: FilterBarProps) {
+  // Local states to manage filter values within the component
   const [showFilters, setShowFilters] = useState(false);
   const [localPriceRange, setLocalPriceRange] = useState(priceRange);
   const [localMinRating, setLocalMinRating] = useState(minRating);
   const [localDurationFilter, setLocalDurationFilter] =
     useState(durationFilter);
+
+  // Ref to handle clicks outside the dropdown to close it
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown if clicked outside
+  // Function to handle click events outside the dropdown
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -36,6 +39,7 @@ export default function FilterBar({
     }
   };
 
+  // Set up and clean up event listener for clicks outside the dropdown
   useEffect(() => {
     if (showFilters) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -45,17 +49,17 @@ export default function FilterBar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFilters]);
 
+  // Handle applying the filters and close the dropdown
   const handleApplyFilters = () => {
-    // Update the main state with the local values when Apply is clicked
     setPriceRange(localPriceRange);
     setMinRating(localMinRating);
     setDurationFilter(localDurationFilter);
-    applyFilters(); // Call the function to apply the filters
+    applyFilters(); // Trigger the filter application function
     setShowFilters(false); // Close the filters dropdown
   };
 
   return (
-    <div className="relative inline-block ">
+    <div className="relative inline-block">
       {/* Filter Toggle Button */}
       <button
         onClick={() => setShowFilters(!showFilters)}
