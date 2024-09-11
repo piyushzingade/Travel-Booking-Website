@@ -28,7 +28,7 @@ const initialState: PackageState = {
 export const fetchPackages = createAsyncThunk(
   "packages/fetchPackages",
   async () => {
-    const response = await axios.get("http://localhost:3002/allPackages");
+    const response = await axios.get("https://travel-booking-website-backend-1.onrender.com");
     return response.data; // Return the data from the response
   }
 );
