@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage';
 import PackagePage from './pages/PackagePage';
 import BookingPage from './pages/BookingPage';
 
-function App() {
+export default function App() {
   return (
     <Provider store={store}>
       <Toaster />
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+
