@@ -39,17 +39,18 @@ To set up the project locally, follow these steps:
 
 ```bash
 git clone https://github.com/piyushzingade/Travel-Booking-Website.git
-cd india-guide
+cd Travel-Booking
 ```
-## Install Dependencies
+## Install Dependencies for client 
 ### Using npm:
 ```bash
-npm install
+npm install axios react-router-dom react-hot-toast reduxjs/toolkit  react-redux react-dom
 ```
 
-### Using yarn:
+## Install Dependencies for server 
+### Using npm:
 ```bash
-yarn install
+npm install body-parser cors express dotenv mongoose paasport passport-local password-mongoose 
 ```
 
 ## Tailwind CSS Setup
@@ -58,6 +59,12 @@ yarn install
 
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+
+// main.css 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 // tailwind.config.js
 module.exports = {
@@ -73,13 +80,14 @@ module.exports = {
 };
 
 ```
+
 ## Running project 
-### To run the development client:
+### To run the development client and server:
 ```bash
 npm run dev
-
-
 ```
+
+
 
 ## Author
 
