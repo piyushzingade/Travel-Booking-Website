@@ -1,48 +1,51 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast"; // Import react-hot-toast
-import { getPackages } from "../services/api"; // Assuming you have a service to fetch packages
+import { toast } from "react-hot-toast"; // Import react-hot-toast for notifications
+import { getPackages } from "../services/api"; // Import API service to fetch packages
 
 export default function PackageDetails() {
-  const { id } = useParams(); // Get the package ID from the URL
-  const [pkg, setPackage] = useState<any>(null);
-  const [selectedDate, setSelectedDate] = useState("");
-  const navigate = useNavigate(); // Use useNavigate hook from react-router-dom
+  const { id } = useParams<string>(); // Get the package ID from URL parameters
+  const [pkg, setPackage] = useState<any>(null); // State to hold package data
+  const [selectedDate, setSelectedDate] = useState<string>(""); // State to hold selected date
+  const navigate = useNavigate(); // Hook to programmatically navigate
 
+  // Fetch package details when component mounts or ID changes
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getPackages(); // Fetch all packages from the backend API
-        const selectedPackage = data.find((p: any) => p._id === id); // Find the package by ID
+        const data = await getPackages(); // Fetch all packages from the API
+        const selectedPackage = data.find((p: any) => p._id === id); // Find the package with the matching ID
+
         if (selectedPackage) {
-          setPackage(selectedPackage); // Set the package data in state
+          setPackage(selectedPackage); // Set package data in state
         } else {
-          toast.error("Package not found"); // Use toast for error handling
+          toast.error("Package not found"); // Notify if package is not found
         }
       } catch (error) {
-        toast.error("Error fetching data");
+        toast.error("Error fetching data"); // Notify on data fetch error
       }
     };
 
-    fetchData(); // Fetch data on component mount
+    fetchData(); // Call fetchData on component mount
   }, [id]);
 
+  // Handle booking button click
   const handleBooking = () => {
     if (!selectedDate) {
-      toast.error("Please select a date before proceeding");
+      toast.error("Please select a date before proceeding"); // Notify if no date selected
     } else {
-      // Redirect to booking page
+      // Navigate to booking page with package and selected date as state
       navigate("/booking", { state: { pkg, selectedDate } });
-      toast.success("Booking page loaded!");
+      toast.success("Booking page loaded!"); // Notify successful navigation
     }
   };
 
-  // Display loading message while data is being fetched
+  // Display a loading message while data is being fetched
   if (!pkg) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto p-6">
-      {/* Move "Home" button outside the image and details container */}
+      {/* Home button */}
       <div className="mb-4">
         <Link
           to="/"
@@ -52,6 +55,7 @@ export default function PackageDetails() {
         </Link>
       </div>
 
+      {/* Package details container */}
       <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left side: Image */}
         <div className="w-full lg:w-1/2 h-96 overflow-hidden">
