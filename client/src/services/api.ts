@@ -4,7 +4,7 @@ import axios from "axios";
 export const getPackages = async () => {
   try {
     // Make a GET request to the API endpoint
-    const response = await axios.get("https://travel-booking-website-backend-1.onrender.com");
+    const response = await axios.get("https://localhost:3002/allPackages");
 
     // Return the data from the response
     return response.data;
