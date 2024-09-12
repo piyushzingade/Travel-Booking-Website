@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast"; // Import react-hot-toast for notifications
-import { getPackages } from "../services/api"; // Import API service to fetch packages
+import { getPackages } from "../../services/api"; // Import API service to fetch packages
 
 export default function PackageDetails() {
   const { id } = useParams<string>(); // Get the package ID from URL parameters

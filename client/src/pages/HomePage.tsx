@@ -1,5 +1,5 @@
 
-import PackageList from "../components/PackageList";
+import PackageList from "../components/Packages/PackageList";
 
 
 export default function HomePage ()  {
