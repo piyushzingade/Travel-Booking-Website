@@ -28,7 +28,7 @@ const initialState: PackageState = {
 export const fetchPackages = createAsyncThunk(
   "packages/fetchPackages",
   async () => {
-    const response = await axios.get("https:localhost:3002/allPackages);
+    const response = await axios.get("https:localhost:3002/allPackages");
     return response.data; // Return the data from the response
   }
 );
