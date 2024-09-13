@@ -19,22 +19,14 @@ export default function FilterBar({
   setDurationFilter,
   applyFilters,
 }: FilterBarProps) {
-  // Local states to manage filter values within the component
   const [showFilters, setShowFilters] = useState(false);
-  const [localPriceRange, setLocalPriceRange] = useState(priceRange);
-  const [localMinRating, setLocalMinRating] = useState(minRating);
-  const [localDurationFilter, setLocalDurationFilter] =
-    useState(durationFilter);
 
   // Ref to handle clicks outside the dropdown to close it
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Function to handle click events outside the dropdown
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setShowFilters(false);
     }
   };
@@ -51,9 +43,6 @@ export default function FilterBar({
 
   // Handle applying the filters and close the dropdown
   const handleApplyFilters = () => {
-    setPriceRange(localPriceRange);
-    setMinRating(localMinRating);
-    setDurationFilter(localDurationFilter);
     applyFilters(); // Trigger the filter application function
     setShowFilters(false); // Close the filters dropdown
   };
@@ -80,20 +69,20 @@ export default function FilterBar({
               htmlFor="price"
               className="block mb-2 font-medium text-gray-700"
             >
-              Price (up to ${localPriceRange})
+              Price (up to ${priceRange})
             </label>
             <input
               id="price"
               type="range"
               min="100"
               max="10000"
-              value={localPriceRange}
-              onChange={(e) => setLocalPriceRange(Number(e.target.value))}
+              value={priceRange}
+              onChange={(e) => setPriceRange(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
             <div className="text-gray-700 mt-2 text-sm">
               Max Price:{" "}
-              <span className="font-semibold">${localPriceRange}</span>
+              <span className="font-semibold">${priceRange}</span>
             </div>
           </div>
 
@@ -107,8 +96,8 @@ export default function FilterBar({
             </label>
             <select
               id="rating"
-              value={localMinRating}
-              onChange={(e) => setLocalMinRating(Number(e.target.value))}
+              value={minRating}
+              onChange={(e) => setMinRating(Number(e.target.value))}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               {[1, 2, 3, 4, 5].map((star) => (
@@ -129,8 +118,8 @@ export default function FilterBar({
             </label>
             <select
               id="duration"
-              value={localDurationFilter}
-              onChange={(e) => setLocalDurationFilter(e.target.value)}
+              value={durationFilter}
+              onChange={(e) => setDurationFilter(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value="">Any Duration</option>
