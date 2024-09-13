@@ -87,14 +87,6 @@ cd client or cd server
 npm run dev!
 
 ```
-[[Screenshot 2024-09-13 163331](https://github.com/user-attachments/assets/4a7cbf21-9112-41ac-be4f-a5bfda58a66b)
-![Uploading image.png…]()
-![Uploading image.png…]()
-![Uploading image.png…]()
-![Uploading image.png…]()
-]
-
-
 
 ## Author
 
