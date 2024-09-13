@@ -88,9 +88,9 @@ npm run dev!
 
 ```
 [[Screenshot 2024-09-13 163331](https://github.com/user-attachments/assets/4a7cbf21-9112-41ac-be4f-a5bfda58a66b)
-![Screenshot 2024-09-13 163331](https://github.com/user-attachments/assets/4a7cbf21-9112-41ac-be4f-a5bfda58a66b)
-![Uploading Screenshot 2024-09-13 163331.png…]()
-![Uploading Screenshot 2024-09-13 163331.png…]()]
+![Screenshot 2024-09-13 163855](https://github.com/user-attachments/assets/d7a22feb-5e2a-43c2-b4d3-5cef64b99d9a)
+
+]
 
 
 
