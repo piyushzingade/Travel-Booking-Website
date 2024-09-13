@@ -1,5 +1,7 @@
+// src/features/packages/packagesSlice.ts
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { mockPackages } from "../../data"; // Adjust the path as necessary
 
 // Define the shape of a single package
 interface Package {
@@ -15,13 +17,13 @@ interface Package {
 
 // Define the shape of the package state in Redux
 interface PackageState {
-  packages: Package[]; // List of all travel packages
-  filteredPackages: Package[]; // List of packages after applying filters
-  loading: boolean; // Indicates if packages are being fetched
-  error: string | null; // Error message if fetching fails
-  priceRange: number; // Maximum price filter for packages
-  minRating: number; // Minimum rating filter for packages
-  durationFilter: string; // Duration filter for packages
+  packages: Package[];
+  filteredPackages: Package[];
+  loading: boolean;
+  error: string | null;
+  priceRange: number;
+  minRating: number;
+  durationFilter: string;
 }
 
 // Initial state of the package slice
@@ -35,31 +37,33 @@ const initialState: PackageState = {
   durationFilter: "", // Default duration filter (no filter applied)
 };
 
-// Async thunk to fetch packages from the API
+// Async thunk to fetch packages from the mock data
 export const fetchPackages = createAsyncThunk(
   "packages/fetchPackages",
   async () => {
-    // Make a GET request to the API endpoint
-    const response = await axios.get("http://localhost:3002/allPackages");
-    return response.data; // Return the data from the response
+    // Simulate an API call delay
+    return new Promise<Package[]>((resolve) => {
+      setTimeout(() => {
+        resolve(mockPackages); // Use mock data
+      }, 500); // Simulated delay
+    });
   }
 );
 
 const packagesSlice = createSlice({
-  name: "packages", // Name of the slice
-  initialState, // Initial state of the slice
+  name: "packages",
+  initialState,
   reducers: {
-    // Reducer to apply filters to the list of packages
     applyFilters(state, action) {
       const { priceRange, minRating, durationFilter, search } = action.payload;
 
       // Filter the packages based on the provided criteria
       state.filteredPackages = state.packages.filter((pkg) => {
         return (
-          pkg.destination.toLowerCase().includes(search.toLowerCase()) && // Filter by search term
-          pkg.price <= priceRange && // Filter by price range
-          pkg.rating >= minRating && // Filter by minimum rating
-          (durationFilter === "" || pkg.duration === durationFilter) // Filter by duration if specified
+          pkg.destination.toLowerCase().includes(search.toLowerCase()) &&
+          pkg.price <= priceRange &&
+          pkg.rating >= minRating &&
+          (durationFilter === "" || pkg.duration === durationFilter)
         );
       });
     },
@@ -67,22 +71,20 @@ const packagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPackages.pending, (state) => {
-        state.loading = true; // Set loading to true when fetching starts
+        state.loading = true;
       })
       .addCase(fetchPackages.fulfilled, (state, action) => {
-        state.loading = false; // Set loading to false when fetching completes
-        state.packages = action.payload; // Store the fetched packages
-        state.filteredPackages = action.payload; // Set initial filtered packages
+        state.loading = false;
+        state.packages = action.payload;
+        state.filteredPackages = action.payload;
       })
       .addCase(fetchPackages.rejected, (state) => {
-        state.loading = false; // Set loading to false when fetching fails
-        state.error = "Failed to fetch packages"; // Set error message
+        state.loading = false;
+        state.error = "Failed to fetch packages";
       });
   },
 });
 
-// Export the action to apply filters
 export const { applyFilters } = packagesSlice.actions;
 
-// Export the reducer to be used in the store
 export default packagesSlice.reducer;

@@ -1,11 +1,11 @@
-// src/main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App'; // Ensure this path and file extension match your App file
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App';  // No curly braces for default exports
 
-ReactDOM.render(
-  <React.StrictMode>
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  </StrictMode>,
+)
