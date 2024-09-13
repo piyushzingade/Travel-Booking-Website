@@ -1,6 +1,6 @@
 //pages/BookingPage
 
-import BookingForm from "../components/Forms/BookingForm";
+import BookingForm from "../components/BookingForm";
 
 export default function BookingPage() {
   return (

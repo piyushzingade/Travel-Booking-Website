@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
-import { RootState, AppDispatch } from "../../redux/store";
-import { setFormField, setEndDate } from "../../redux/slices/bookingSlice";
+import { RootState, AppDispatch } from "../redux/store";
+import { setFormField, setEndDate } from "../redux/slices/bookingSlice";
 
 // Component for booking form
 export default function BookingForm() {

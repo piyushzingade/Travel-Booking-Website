@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast"; // Import react-hot-toast for notifications
-import { getPackages } from "../../services/api"; // Import API service to fetch packages
+import { toast } from "react-hot-toast";
+import { mockPackages } from "../data"; // Import the in-memory data
 
-export default function PackageDetails() {
+export default function DetailPackage() {
   const { id } = useParams<string>(); // Get the package ID from URL parameters
   const [pkg, setPackage] = useState<any>(null); // State to hold package data
   const [selectedDate, setSelectedDate] = useState<string>(""); // State to hold selected date
@@ -11,22 +11,13 @@ export default function PackageDetails() {
 
   // Fetch package details when component mounts or ID changes
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPackages(); // Fetch all packages from the API
-        const selectedPackage = data.find((p: any) => p._id === id); // Find the package with the matching ID
+    const selectedPackage = mockPackages.find((p) => p._id === id); // Find the package with the matching ID
 
-        if (selectedPackage) {
-          setPackage(selectedPackage); // Set package data in state
-        } else {
-          toast.error("Package not found"); // Notify if package is not found
-        }
-      } catch (error) {
-        toast.error("Error fetching data"); // Notify on data fetch error
-      }
-    };
-
-    fetchData(); // Call fetchData on component mount
+    if (selectedPackage) {
+      setPackage(selectedPackage); // Set package data in state
+    } else {
+      toast.error("Package not found"); // Notify if package is not found
+    }
   }, [id]);
 
   // Handle booking button click

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPackages, applyFilters } from "../../redux/slices/packagesSlice";
-import { RootState, AppDispatch } from "../../redux/store";
-import SearchBar from "../Bars/SearchBar";
-import FilterBar from "../Bars/FilterBar";
+import { fetchPackages, applyFilters } from "../redux/slices/packagesSlice";
+import { RootState, AppDispatch } from "../redux/store";
+import SearchBar from "./SearchBar";
+import FilterBar from "./FilterBar";
 import DisplayPackageList from "./DisplayPackageList";
 
 export default function PackageList() {
