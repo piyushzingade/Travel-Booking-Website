@@ -84,8 +84,13 @@ module.exports = {
 ### To run the development client and server:
 ```bash
 cd client or cd server
-npm run dev
+npm run dev!
+
 ```
+[[Screenshot 2024-09-13 163331](https://github.com/user-attachments/assets/4a7cbf21-9112-41ac-be4f-a5bfda58a66b)
+![Screenshot 2024-09-13 163331](https://github.com/user-attachments/assets/4a7cbf21-9112-41ac-be4f-a5bfda58a66b)
+![Uploading Screenshot 2024-09-13 163331.png…]()
+![Uploading Screenshot 2024-09-13 163331.png…]()]
 
 
 
