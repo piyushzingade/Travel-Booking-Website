@@ -36,8 +36,8 @@ To set up the project locally, follow these steps:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/piyushzingade/Travel-Booking-Website.git
-cd Travel-Booking
+git clone https://github.com/piyushzingade/Travel-Booking-Website-Frontend.git
+cd Travel-Booking-Website-Frontend
 ```
 ## Install Dependencies for client 
 ### Using npm:
@@ -82,6 +82,7 @@ module.exports = {
 ## Running project 
 ### To run the development client and server:
 ```bash
+cd client or cd server
 npm run dev
 ```
 
