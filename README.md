@@ -38,6 +38,7 @@ To set up the project locally, follow these steps:
 ```bash
 git clone https://github.com/piyushzingade/Travel-Booking-Website-Frontend.git
 cd Travel-Booking-Website-Frontend
+cd client
 ```
 ## Install Dependencies for client 
 ### Using npm:
