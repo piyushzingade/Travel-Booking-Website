@@ -54,7 +54,9 @@ export default function PackageList() {
         <SearchBar
           search={search}
           setSearch={setSearch}
-          handleSearch={() => {}}
+          handleSearch={() => {
+            handleApplyFilters;
+          }}
         />
         {/* Filter Bar Component */}
         <FilterBar
