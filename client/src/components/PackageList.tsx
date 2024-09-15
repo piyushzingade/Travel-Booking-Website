@@ -36,6 +36,18 @@ export default function PackageList() {
     );
   };
 
+  // Handle search action (only searches without applying filters)
+  const handleSearch = () => {
+    dispatch(
+      applyFilters({
+        priceRange: tempPriceRange,
+        minRating: tempMinRating,
+        durationFilter: tempDurationFilter,
+        search,
+      })
+    );
+  };
+
   // Display loading state
   if (loading) {
     return <div>Loading packages...</div>;
@@ -54,7 +66,7 @@ export default function PackageList() {
         <SearchBar
           search={search}
           setSearch={setSearch}
-          handleSearch={() => {}}
+          handleSearch={handleSearch} // Trigger search without filters
         />
         {/* Filter Bar Component */}
         <FilterBar
@@ -64,7 +76,7 @@ export default function PackageList() {
           setMinRating={setTempMinRating}
           durationFilter={tempDurationFilter}
           setDurationFilter={setTempDurationFilter}
-          applyFilters={handleApplyFilters}
+          applyFilters={handleApplyFilters} // Apply filters and search
         />
       </div>
 
