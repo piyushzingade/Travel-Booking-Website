@@ -61,7 +61,7 @@ export default function PackageList() {
   return (
     <div className="p-4">
       {/* Container for Search Bar and Filter Bar */}
-      <div className="mb-4 flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+      <div className="mb-4 flex flex-wrap md:flex-nowrap items-center justify-center space-y-0 md:space-x-4">
         {/* Search Bar Component */}
         <SearchBar
           search={search}
