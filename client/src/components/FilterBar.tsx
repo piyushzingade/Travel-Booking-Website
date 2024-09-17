@@ -7,7 +7,7 @@ interface FilterBarProps {
   setMinRating: (value: number) => void;
   durationFilter: string;
   setDurationFilter: (value: string) => void;
-  applyFilters: () => void; // Function to trigger the filter application
+  applyFilters: () => void;
 }
 
 export default function FilterBar({
@@ -20,18 +20,17 @@ export default function FilterBar({
   applyFilters,
 }: FilterBarProps) {
   const [showFilters, setShowFilters] = useState(false);
-
-  // Ref to handle clicks outside the dropdown to close it
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Function to handle click events outside the dropdown
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setShowFilters(false);
     }
   };
 
-  // Set up and clean up event listener for clicks outside the dropdown
   useEffect(() => {
     if (showFilters) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -41,10 +40,9 @@ export default function FilterBar({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showFilters]);
 
-  // Handle applying the filters and close the dropdown
   const handleApplyFilters = () => {
-    applyFilters(); // Trigger the filter application function
-    setShowFilters(false); // Close the filters dropdown
+    applyFilters();
+    setShowFilters(false);
   };
 
   return (
@@ -61,7 +59,9 @@ export default function FilterBar({
       {showFilters && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 mt-2 w-72 bg-white border border-gray-200 rounded-md shadow-lg z-20"
+          className="absolute mt-2 bg-white border border-gray-200 rounded-md shadow-lg z-20 
+          w-72 max-w-xs right-0 md:left-0 md:right-auto" // Adjust position to prevent overflow
+          style={{ maxWidth: "calc(100vw - 16px)" }} // Ensures dropdown doesn't overflow screen width
         >
           {/* Price Range Filter */}
           <div className="p-4">
@@ -81,8 +81,7 @@ export default function FilterBar({
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
             <div className="text-gray-700 mt-2 text-sm">
-              Max Price:{" "}
-              <span className="font-semibold">${priceRange}</span>
+              Max Price: <span className="font-semibold">${priceRange}</span>
             </div>
           </div>
 
