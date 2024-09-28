@@ -15,7 +15,7 @@ export default function PackageList() {
 
   // Local state for search and filter values
   const [search, setSearch] = useState("");
-  const [tempPriceRange, setTempPriceRange] = useState(10000);
+  const [tempPriceRange, setTempPriceRange] = useState(5000);
   const [tempMinRating, setTempMinRating] = useState(1);
   const [tempDurationFilter, setTempDurationFilter] = useState("");
 
