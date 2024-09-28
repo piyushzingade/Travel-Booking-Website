@@ -75,7 +75,7 @@ export default function FilterBar({
               id="price"
               type="range"
               min="100"
-              max="10000"
+              max="5000"
               value={priceRange}
               onChange={(e) => setPriceRange(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
