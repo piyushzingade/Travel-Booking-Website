@@ -84,7 +84,7 @@ module.exports = {
 ### To run the development client and server:
 ```bash
 cd client or cd server
-npm run dev!
+npm run dev
 
 ```
 
