@@ -1,7 +1,6 @@
-// src/slices/bookingSlice.ts
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define the shape of the booking form state
 interface BookingFormState {
   name: string; // Name of the person booking
   phone: string; // Phone number of the person booking
