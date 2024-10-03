@@ -1,7 +1,7 @@
-// src/features/packages/packagesSlice.ts
+
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { mockPackages } from "../../data"; // Adjust the path as necessary
+import { mockPackages } from "../../data"; 
 
 // Define the shape of a single package
 interface Package {
@@ -41,11 +41,11 @@ const initialState: PackageState = {
 export const fetchPackages = createAsyncThunk(
   "packages/fetchPackages",
   async () => {
-    // Simulate an API call delay
+
     return new Promise<Package[]>((resolve) => {
       setTimeout(() => {
         resolve(mockPackages); // Use mock data
-      }, 500); // Simulated delay
+      }, 500); 
     });
   }
 );
